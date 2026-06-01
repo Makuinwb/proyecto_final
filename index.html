@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>CrisisSim - Simulador Educativo de Crisis y Economía Familiar</title>
+    <!-- Metatags para SEO y accesibilidad -->
+    <meta name="description" content="Simulador web educativo sobre abastecimiento, inflación de precios y economía familiar ante situaciones de crisis. Creado para Programación Web I.">
+    <meta name="author" content="Joaquín Ramos Alanoca">
+    <!-- Hojas de estilo y fuentes modernas -->
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome para iconos premium -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- CABECERA DE LA APLICACIÓN -->
+        <header class="app-header">
+            <div class="header-main-content">
+                <div class="logo-group">
+                    <div class="logo-icon-wrapper">
+                        <i class="fa-solid fa-chart-line-up animate-pulse"><img src="img/logo.png" alt="logo"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Crisis<span>Sim</span></h1>
+                        <span class="badge-edu">Simulador Educativo</span>
+                    </div>
+                </div>
+                <p class="tagline">Análisis dinámico de abastecimiento, precios y consumo familiar en contextos de crisis</p>
+                <div class="header-meta">
+                    <span class="meta-item"><i class="fa-solid fa-user-graduate"></i> Estudiante: <strong>Joaquín Ramos Alanoca</strong></span>
+                    <span class="divider">|</span>
+                    <span class="meta-item"><i class="fa-solid fa-code"></i> Proyecto: <strong>Desafío Final - Prog. Web I</strong></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- BARRA DE NAVEGACIÓN PRINCIPAL -->
+        <nav class="app-navigation" aria-label="Menú de simuladores">
+            <button class="nav-link active" data-tab="context" id="btn-tab-context">
+                <i class="fa-solid fa-house-chimney"></i> <span>Contexto</span>
+            </button>
+            <button class="nav-link" data-tab="fuel" id="btn-tab-fuel">
+                <i class="fa-solid fa-gas-pump"></i> <span>Carburantes</span>
+            </button>
+            <button class="nav-link" data-tab="food" id="btn-tab-food">
+                <i class="fa-solid fa-basket-shopping"></i> <span>Precios Canasta</span>
+            </button>
+            <button class="nav-link" data-tab="transport" id="btn-tab-transport">
+                <i class="fa-solid fa-route"></i> <span>Transporte</span>
+            </button>
+            <button class="nav-link" data-tab="budget" id="btn-tab-budget">
+                <i class="fa-solid fa-wallet"></i> <span>Presupuesto</span>
+            </button>
+            <button class="nav-link" data-tab="panic" id="btn-tab-panic">
+                <i class="fa-solid fa-users-rectangle"></i> <span>Rumores/Escasez</span>
+            </button>
+            <button class="nav-link" data-tab="purchasing" id="btn-tab-purchasing">
+                <i class="fa-solid fa-money-bill-trend-up"></i> <span>Poder Adquisitivo</span>
+            </button>
+            <button class="nav-link" data-tab="learning" id="btn-tab-learning">
+                <i class="fa-solid fa-graduation-cap"></i> <span>¿Qué Aprendemos?</span>
+            </button>
+            <button class="nav-link nav-link-cases" data-tab="cases" id="btn-tab-cases">
+                <i class="fa-solid fa-vials"></i> <span>Casos de Estudio</span>
+            </button>
+        </nav>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="app-main">
+
+            <!-- SECCIÓN: INTRODUCCIÓN Y CONTEXTO -->
+            <section id="sec-context" class="simulator-panel active" aria-labelledby="title-context">
+                <div class="panel-hero">
+                    <div class="hero-icon"><i class="fa-solid fa-circle-info"></i></div>
+                    <div class="hero-body">
+                        <h2 id="title-context">Contexto del Desafío y Propósito Educativo</h2>
+                        <p>Simulador interactivo diseñado para visualizar y comprender de manera práctica cómo los bloqueos, la especulación, el desabastecimiento de carburantes y la inflación afectan directamente la vida diaria y la toma de decisiones de las familias.</p>
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <article class="info-card info-danger">
+                        <div class="card-header">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <h3>Desafíos Socioeconómicos Actuales</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>En coyunturas complejas, se activan dinámicas económicas interconectadas. Este simulador abarca:</p>
+                            <ul class="styled-list">
+                                <li><strong>Reservas de Carburantes:</strong> Monitoreo de niveles en surtidores ante suministros irregulares.</li>
+                                <li><strong>Canasta de Alimentos:</strong> Fluctuación mensual de precios básicos y su efecto en el gasto mensual.</li>
+                                <li><strong>Costos de Transporte:</strong> El impacto financiero de bloqueos que fuerzan rutas alternas más largas.</li>
+                                <li><strong>Rumores y Pánico:</strong> La rapidez con la que el miedo altera la demanda y agota el stock.</li>
+                                <li><strong>Pérdida de Poder Adquisitivo:</strong> Cómo salarios fijos compran menos bienes en entornos inflacionarios.</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="info-card info-success">
+                        <div class="card-header">
+                            <i class="fa-solid fa-lightbulb"></i>
+                            <h3>¿Cómo funciona esta Herramienta?</h3>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>CrisisSim</strong> utiliza modelos lógicos y matemáticos simplificados para calcular proyecciones basadas en tus datos:</p>
+                            <ul class="steps-list">
+                                <li><span class="step-num">1</span> <strong>Elige un escenario:</strong> Navega usando el menú superior.</li>
+                                <li><span class="step-num">2</span> <strong>Lee la guía:</strong> Cada panel incluye instrucciones y explicaciones de las variables.</li>
+                                <li><span class="step-num">3</span> <strong>Ingresa datos:</strong> Digita valores reales o haz clic en los <em>Casos de Estudio</em> sugeridos para auto-completar.</li>
+                                <li><span class="step-num">4</span> <strong>Analiza los resultados:</strong> Revisa el diagnóstico dinámico y las gráficas interactivas.</li>
+                            </ul>
+                            <div class="edu-callout">
+                                <i class="fa-solid fa-shield-halved"></i>
+                                <span><strong>Enfoque Académico:</strong> Esta aplicación no emite juicios políticos. Su fin es exclusivamente analítico y de educación financiera.</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- ESCENARIO A: SIMULADOR DE CARBURANTES -->
+            <section id="sec-fuel" class="simulator-panel" aria-labelledby="title-fuel">
+                <div class="panel-hero hero-fuel">
+                    <div class="hero-icon"><i class="fa-solid fa-gas-pump"></i></div>
+                    <div class="hero-body">
+                        <h2 id="title-fuel">Simulador de Abastecimiento de Carburantes</h2>
+                        <p>Analiza el inventario de una estación de servicio. Calcula cuántos días durarán las reservas actuales basándose en el consumo promedio diario y el ritmo de reabastecimiento.</p>
+                    </div>
+                </div>
+
+                <div class="sim-grid">
+                    <!-- Formulario de Entrada -->
+                    <div class="panel-card form-column">
+                        <h3><i class="fa-solid fa-sliders"></i> Variables de Simulación</h3>
+                        
+                        <!-- Guía de Llenado Rápido -->
+                        <details class="helper-details">
+                            <summary><i class="fa-solid fa-circle-question"></i> Guía de Variables (Haz clic para ver)</summary>
+                            <div class="helper-content">
+                                <p><strong>Reserva Inicial:</strong> Litros disponibles en los tanques al inicio de la simulación.</p>
+                                <p><strong>Consumo Diario:</strong> Volumen promedio de litros comprados por los vehículos al día.</p>
+                                <p><strong>Reabastecimiento Diario:</strong> Litros que el camión cisterna entrega diariamente a la estación.</p>
+                                <p><strong>Nivel Crítico de Alerta:</strong> Umbral de seguridad (en litros). Al caer por debajo de este, la estación declara alerta por riesgo de desabastecimiento.</p>
+                            </div>
+                        </details>
+
+                        <form id="form-fuel" novalidate>
+                            <div class="form-group">
+                                <label for="fuel-initial">Reserva Inicial (Litros):</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-warehouse"></i>
+                                    <input type="number" id="fuel-initial" placeholder="Ej: 10000" min="0" required>
+                                </div>
+                                <span class="input-help">Combustible almacenado actualmente.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fuel-consumption">Consumo Diario Estimado (Litros):</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-gauge-high"></i>
+                                    <input type="number" id="fuel-consumption" placeholder="Ej: 1200" min="0" required>
+                                </div>
+                                <span class="input-help">Cantidad demandada diariamente por los usuarios.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fuel-refill">Reabastecimiento Diario (Litros):</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-truck-field"></i>
+                                    <input type="number" id="fuel-refill" placeholder="Ej: 300" min="0" required>
+                                </div>
+                                <span class="input-help">Combustible fresco recibido cada día.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fuel-critical">Nivel Crítico de Reserva (Litros):</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-circle-exclamation"></i>
+                                    <input type="number" id="fuel-critical" placeholder="Ej: 2000" min="0" required>
+                                </div>
+                                <span class="input-help">Límite de alerta para emergencias.</span>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary" id="btn-calc-fuel">
+                                    <i class="fa-solid fa-calculator"></i> Calcular Proyección
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-clear" data-form="form-fuel">
+                                    <i class="fa-solid fa-trash-can"></i> Limpiar
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="test-preset-box">
+                            <h4><i class="fa-solid fa-vial-circle-check"></i> Probar Caso de Estudio 1</h4>
+                            <p>Evalúa el comportamiento oficial establecido para la reserva inicial.</p>
+                            <button type="button" class="btn btn-preset" data-preset="fuel-case1">
+                                <i class="fa-solid fa-download"></i> Cargar Caso 1 (10,000 L)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Resultados Visuales -->
+                    <div class="panel-card results-column">
+                        <h3><i class="fa-solid fa-square-poll-vertical"></i> Diagnóstico del Inventario</h3>
+                        
+                        <div id="results-fuel" class="results-placeholder">
+                            <div class="empty-state">
+                                <i class="fa-solid fa-gas-pump-slash"></i>
+                                <p>Ingresa los valores numéricos y presiona <strong>Calcular Proyección</strong> para ver el reporte interactivo.</p>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico Dinámico -->
+                        <div id="chart-container-fuel" class="dynamic-chart-card" style="display: none;">
+                            <h4>Tendencia de Combustible (Día a Día)</h4>
+                            <div class="bar-chart-wrapper" id="fuel-chart-bars">
+                                <!-- Generado por JS -->
+                            </div>
+                            <div class="chart-legend">
+                                <span class="legend-dot normal"></span> Normal
+                                <span class="legend-dot warning"></span> Nivel Crítico
+                                <span class="legend-dot critical"></span> Agotado
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ESCENARIO B: PRECIOS DE ALIMENTOS -->
+            <section id="sec-food" class="simulator-panel" aria-labelledby="title-food">
+                <div class="panel-hero hero-food">
+                    <div class="hero-icon"><i class="fa-solid fa-apple-whole"></i></div>
+                    <div class="hero-body">
+                        <h2 id="title-food">Simulador de Precios de Alimentos e Inflación</h2>
+                        <p>Calcula el impacto directo que el aumento de precios en la canasta familiar genera en el gasto doméstico. Permite ingresar múltiples artículos simultáneamente.</p>
+                    </div>
+                </div>
+
+                <div class="sim-grid">
+                    <!-- Formulario de Entrada -->
+                    <div class="panel-card form-column">
+                        <h3><i class="fa-solid fa-basket-shopping"></i> Artículos de la Canasta Familiar</h3>
+                        
+                        <details class="helper-details">
+                            <summary><i class="fa-solid fa-circle-question"></i> Guía de Registro (Haz clic para ver)</summary>
+                            <div class="helper-content">
+                                <p>Ingresa los artículos básicos que consume tu familia al mes.</p>
+                                <p><strong>Precio Anterior:</strong> El costo promedio histórico del producto en bolivianos (Bs).</p>
+                                <p><strong>Precio Actual:</strong> El precio de mercado actual registrado debido al desabastecimiento o crisis.</p>
+                                <p><strong>Cantidad Mensual:</strong> El volumen físico de productos comprados mensualmente (unidades, kilos, litros).</p>
+                            </div>
+                        </details>
+
+                        <form id="form-food" novalidate>
+                            <div class="dynamic-rows-container" id="food-items-list">
+                                <!-- Filas dinámicas de alimentos -->
+                            </div>
+
+                            <button type="button" class="btn btn-add-row" id="btn-add-food-item">
+                                <i class="fa-solid fa-plus"></i> Agregar Otro Alimento
+                            </button>
+
+                            <div class="form-actions mt-4">
+                                <button type="submit" class="btn btn-primary" id="btn-calc-food">
+                                    <i class="fa-solid fa-calculator"></i> Analizar Variación de Costos
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-clear" data-form="form-food">
+                                    <i class="fa-solid fa-trash-can"></i> Limpiar Todo
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="test-preset-box">
+                            <h4><i class="fa-solid fa-vial-circle-check"></i> Probar Caso de Estudio 2</h4>
+                            <p>Carga la lista típica de Arroz, Papa y Aceite definida en la guía práctica.</p>
+                            <button type="button" class="btn btn-preset" data-preset="food-case2">
+                                <i class="fa-solid fa-download"></i> Cargar Caso 2 (Canasta Básica)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Resultados Visuales -->
+                    <div class="panel-card results-column">
+                        <h3><i class="fa-solid fa-file-invoice-dollar"></i> Reporte de Inflación Familiar</h3>
+                        
+                        <div id="results-food" class="results-placeholder">
+                            <div class="empty-state">
+                                <i class="fa-solid fa-receipt"></i>
+                                <p>Genera el reporte para observar cuánto más gasta tu hogar por el incremento de precios básicos.</p>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico dinámico de gastos -->
+                        <div id="chart-container-food" class="dynamic-chart-card" style="display: none;">
+                            <h4>Distribución de Gasto (Antes vs Ahora)</h4>
+                            <div class="dual-progress-container" id="food-progress-bars">
+                                <!-- JS inyectará el gráfico de barras comparativo -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ESCENARIO C: COSTO DE TRANSPORTE -->
+            <section id="sec-transport" class="simulator-panel" aria-labelledby="title-transport">
+                <div class="panel-hero hero-transport">
+                    <div class="hero-icon"><i class="fa-solid fa-route"></i></div>
+                    <div class="hero-body">
+                        <h2 id="title-transport">Simulador de Costo de Transporte por Desvíos</h2>
+                        <p>Estima el incremento en los gastos de movilidad semanal y mensual de un ciudadano o transportista cuando ocurren bloqueos, protestas o falta de combustible que exigen rutas alternativas largas.</p>
+                    </div>
+                </div>
+
+                <div class="sim-grid">
+                    <!-- Formulario de Entrada -->
+                    <div class="panel-card form-column">
+                        <h3><i class="fa-solid fa-road-barrier"></i> Datos del Recorrido</h3>
+                        
+                        <details class="helper-details">
+                            <summary><i class="fa-solid fa-circle-question"></i> Guía de Datos de Ruta (Haz clic para ver)</summary>
+                            <div class="helper-content">
+                                <p><strong>Distancia Normal:</strong> Kilometraje regular entre origen y destino sin interferencias.</p>
+                                <p><strong>Distancia con Desvío:</strong> Kilometraje que se debe recorrer tomando rutas alternas o buscando desvíos debido a cortes de vía.</p>
+                                <p><strong>Costo por Kilómetro:</strong> Gasto promedio por cada kilómetro (combustible consumido, tarifas de pasaje, mantenimiento).</p>
+                                <p><strong>Viajes por Semana:</strong> Cantidad de recorridos ida y vuelta realizados en 7 días.</p>
+                            </div>
+                        </details>
+
+                        <form id="form-transport" novalidate>
+                            <div class="form-group">
+                                <label for="trans-dist-normal">Distancia Habitual (Kilómetros):</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-map-pin"></i>
+                                    <input type="number" id="trans-dist-normal" placeholder="Ej: 10" min="0.1" step="0.1" required>
+                                </div>
+                                <span class="input-help">Distancia de la ruta limpia estándar.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="trans-dist-detour">Distancia con Desvíos / Rutas Alternas (Kilómetros):</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-circle-nodes"></i>
+                                    <input type="number" id="trans-dist-detour" placeholder="Ej: 16" min="0.1" step="0.1" required>
+                                </div>
+                                <span class="input-help">Distancia real del trayecto alternativo largo.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="trans-cost-km">Costo Operativo por Kilómetro (Bs/km):</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-money-bill-1"></i>
+                                    <input type="number" id="trans-cost-km" placeholder="Ej: 2.0" min="0.01" step="0.01" required>
+                                </div>
+                                <span class="input-help">Precio del pasaje o costo en gasolina por kilómetro.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="trans-trips">Frecuencia Semanal (Viajes por Semana):</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-calendar-day"></i>
+                                    <input type="number" id="trans-trips" placeholder="Ej: 5" min="1" required>
+                                </div>
+                                <span class="input-help">Número de veces a la semana que se realiza esta ruta.</span>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary" id="btn-calc-transport">
+                                    <i class="fa-solid fa-calculator"></i> Calcular Incremento
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-clear" data-form="form-transport">
+                                    <i class="fa-solid fa-trash-can"></i> Limpiar
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="test-preset-box">
+                            <h4><i class="fa-solid fa-vial-circle-check"></i> Probar Caso de Estudio 3</h4>
+                            <p>Simula una ruta escolar o de trabajo diaria con desvío de 6 km adicionales.</p>
+                            <button type="button" class="btn btn-preset" data-preset="transport-case3">
+                                <i class="fa-solid fa-download"></i> Cargar Caso 3 (Desvío 16 km)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Resultados Visuales -->
+                    <div class="panel-card results-column">
+                        <h3><i class="fa-solid fa-road-spikes"></i> Balance Financiero de Transporte</h3>
+                        
+                        <div id="results-transport" class="results-placeholder">
+                            <div class="empty-state">
+                                <i class="fa-solid fa-car-tunnel"></i>
+                                <p>Registra las distancias para conocer el sobrecosto acumulado de los desvíos.</p>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico dinámico -->
+                        <div id="chart-container-transport" class="dynamic-chart-card" style="display: none;">
+                            <h4>Costo Semanal Acumulado (Bolivianos)</h4>
+                            <div class="horizontal-bars" id="transport-chart-bars">
+                                <!-- Inyección JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ESCENARIO D: COMPRAS FAMILIARES -->
+            <section id="sec-budget" class="simulator-panel" aria-labelledby="title-budget">
+                <div class="panel-hero hero-budget">
+                    <div class="hero-icon"><i class="fa-solid fa-wallet"></i></div>
+                    <div class="hero-body">
+                        <h2 id="title-budget">Simulador de Compras Familiares y Presupuesto Limitado</h2>
+                        <p>Evalúa si el presupuesto familiar disponible logra cubrir las compras básicas de alimentos de la lista de abastecimiento familiar.</p>
+                    </div>
+                </div>
+
+                <div class="sim-grid">
+                    <!-- Formulario de Entrada -->
+                    <div class="panel-card form-column">
+                        <h3><i class="fa-solid fa-receipt"></i> Planificación de Compra</h3>
+                        
+                        <details class="helper-details">
+                            <summary><i class="fa-solid fa-circle-question"></i> Guía de Planificación (Haz clic para ver)</summary>
+                            <div class="helper-content">
+                                <p><strong>Presupuesto Familiar:</strong> El dinero físico total en Bs que tienes apartado exclusivamente para esta compra.</p>
+                                <p><strong>Lista de Productos:</strong> Agrega cada producto con el precio unitario pactado hoy en el mercado y la cantidad que pretendes adquirir.</p>
+                            </div>
+                        </details>
+
+                        <form id="form-budget" novalidate>
+                            <div class="form-group">
+                                <label for="budget-limit">Presupuesto Disponible (Bs):</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-coins"></i>
+                                    <input type="number" id="budget-limit" placeholder="Ej: 500" min="0" required>
+                                </div>
+                                <span class="input-help">Total de dinero destinado para la compra.</span>
+                            </div>
+
+                            <div class="dynamic-rows-container" id="budget-items-list">
+                                <!-- Lista dinámica de compras -->
+                            </div>
+
+                            <button type="button" class="btn btn-add-row" id="btn-add-budget-item">
+                                <i class="fa-solid fa-plus"></i> Agregar Artículo al Carrito
+                            </button>
+
+                            <div class="form-actions mt-4">
+                                <button type="submit" class="btn btn-primary" id="btn-calc-budget">
+                                    <i class="fa-solid fa-cart-shopping"></i> Evaluar Viabilidad de Compra
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-clear" data-form="form-budget">
+                                    <i class="fa-solid fa-trash-can"></i> Limpiar Todo
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="test-preset-box">
+                            <h4><i class="fa-solid fa-vial-circle-check"></i> Probar Caso de Estudio 4</h4>
+                            <p>Evalúa una compra con presupuesto de 500 Bs y total de productos de 580 Bs.</p>
+                            <button type="button" class="btn btn-preset" data-preset="budget-case4">
+                                <i class="fa-solid fa-download"></i> Cargar Caso 4 (Presupuesto 500 Bs)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Resultados Visuales -->
+                    <div class="panel-card results-column">
+                        <h3><i class="fa-solid fa-clipboard-list"></i> Estado de Fondos del Hogar</h3>
+                        
+                        <div id="results-budget" class="results-placeholder">
+                            <div class="empty-state">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                                <p>Suma los productos a tu lista para saber si tu presupuesto resistirá los precios vigentes.</p>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico dinámico de presupuesto -->
+                        <div id="chart-container-budget" class="dynamic-chart-card" style="display: none;">
+                            <h4>Gasto del Presupuesto (%)</h4>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" id="budget-progress-bar">0%</div>
+                            </div>
+                            <div class="progress-bar-labels">
+                                <span>0%</span>
+                                <span>50%</span>
+                                <span>100% (Límite)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ESCENARIO E: RUMOR DE ESCASEZ Y COMPRAS POR PÁNICO -->
+            <section id="sec-panic" class="simulator-panel" aria-labelledby="title-panic">
+                <div class="panel-hero hero-panic">
+                    <div class="hero-icon"><i class="fa-solid fa-people-group"></i></div>
+                    <div class="hero-body">
+                        <h2 id="title-panic">Simulador de Rumores y Compras por Pánico</h2>
+                        <p>Simula el fenómeno social donde un rumor de desabastecimiento hace que las personas compren en exceso, superando la demanda habitual y vaciando el stock de las tiendas.</p>
+                    </div>
+                </div>
+
+                <div class="sim-grid">
+                    <!-- Formulario de Entrada -->
+                    <div class="panel-card form-column">
+                        <h3><i class="fa-solid fa-chart-line-down"></i> Datos de Oferta y Demanda</h3>
+                        
+                        <details class="helper-details">
+                            <summary><i class="fa-solid fa-circle-question"></i> Guía de Variables de Demanda (Haz clic para ver)</summary>
+                            <div class="helper-content">
+                                <p><strong>Demanda Normal:</strong> Cantidad de productos que compra habitualmente una persona al día.</p>
+                                <p><strong>Aumento por Rumor (%):</strong> El porcentaje adicional que la gente decide comprar debido al pánico.</p>
+                                <p><strong>Stock Disponible:</strong> El inventario total de productos en las estanterías de la tienda.</p>
+                                <p><strong>Personas/Familias:</strong> El número de compradores que acuden a abastecerse de inmediato.</p>
+                            </div>
+                        </details>
+
+                        <form id="form-panic" novalidate>
+                            <div class="form-group">
+                                <label for="panic-normal-demand">Demanda Habitual por Persona (Unidades):</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-box-open"></i>
+                                    <input type="number" id="panic-normal-demand" placeholder="Ej: 100" min="0" required>
+                                </div>
+                                <span class="input-help">Lo requerido por un comprador bajo condiciones tranquilas.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="panic-percent-increase">Porcentaje de Aumento por Rumor (%):</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-arrow-trend-up"></i>
+                                    <input type="number" id="panic-percent-increase" placeholder="Ej: 40" min="0" required>
+                                </div>
+                                <span class="input-help">Incremento del volumen de compra por pánico colectivo.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="panic-stock">Inventario / Stock Disponible de la Tienda (Unidades):</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                    <input type="number" id="panic-stock" placeholder="Ej: 120" min="0" required>
+                                </div>
+                                <span class="input-help">Artículos en stock físico disponibles para la venta.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="panic-buyers">Cantidad de Compradores en Pánico (Familias):</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-users"></i>
+                                    <input type="number" id="panic-buyers" value="1" min="1" required>
+                                </div>
+                                <span class="input-help">Número de clientes que van a comprar al mismo tiempo.</span>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary" id="btn-calc-panic">
+                                    <i class="fa-solid fa-masks-theater"></i> Simular Compras
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-clear" data-form="form-panic">
+                                    <i class="fa-solid fa-trash-can"></i> Limpiar
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="test-preset-box">
+                            <h4><i class="fa-solid fa-vial-circle-check"></i> Probar Caso de Estudio 5</h4>
+                            <p>Prueba una demanda base de 100 con rumor de +40% frente a un stock de 120.</p>
+                            <button type="button" class="btn btn-preset" data-preset="panic-case5">
+                                <i class="fa-solid fa-download"></i> Cargar Caso 5 (Stock 120)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Resultados Visuales -->
+                    <div class="panel-card results-column">
+                        <h3><i class="fa-solid fa-store-slash"></i> Estado del Abastecimiento Comercial</h3>
+                        
+                        <div id="results-panic" class="results-placeholder">
+                            <div class="empty-state">
+                                <i class="fa-solid fa-shop-slash"></i>
+                                <p>Simula el impacto de un rumor para constatar si se produce un desabastecimiento comercial inmediato.</p>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico dinámico -->
+                        <div id="chart-container-panic" class="dynamic-chart-card" style="display: none;">
+                            <h4>Comparativa: Stock vs Nueva Demanda</h4>
+                            <div class="bar-chart-wrapper" id="panic-chart-bars">
+                                <!-- Inyección JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ESCENARIO F: PÉRDIDA DEL PODER ADQUISITIVO -->
+            <section id="sec-purchasing" class="simulator-panel" aria-labelledby="title-purchasing">
+                <div class="panel-hero hero-purchasing">
+                    <div class="hero-icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                    <div class="hero-body">
+                        <h2 id="title-purchasing">Simulador de Pérdida del Poder Adquisitivo</h2>
+                        <p>Determina con precisión el impacto financiero de la inflación en tu sueldo mensual. Calcula cuánto disminuye tu capacidad real de compra cuando los ingresos siguen congelados.</p>
+                    </div>
+                </div>
+
+                <div class="sim-grid">
+                    <!-- Formulario de Entrada -->
+                    <div class="panel-card form-column">
+                        <h3><i class="fa-solid fa-scale-unbalanced-flip"></i> Estructura de Ingresos y Gastos</h3>
+                        
+                        <details class="helper-details">
+                            <summary><i class="fa-solid fa-circle-question"></i> Guía de Análisis de Sueldo (Haz clic para ver)</summary>
+                            <div class="helper-content">
+                                <p><strong>Ingreso Familiar Mensual:</strong> El sueldo neto que recibe la familia. Este ingreso no cambia.</p>
+                                <p><strong>Gasto Mensual Anterior:</strong> Cuánto dinero gastaba la familia al mes en alimentos y servicios básicos antes de la crisis.</p>
+                                <p><strong>Gasto Mensual Actual:</strong> El costo actual estimado de comprar el mismo volumen de alimentos y servicios con los precios encarecidos.</p>
+                            </div>
+                        </details>
+
+                        <form id="form-purchasing" novalidate>
+                            <div class="form-group">
+                                <label for="purchase-income">Ingreso Mensual Familiar (Bs):</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-money-check-dollar"></i>
+                                    <input type="number" id="purchase-income" placeholder="Ej: 3000" min="1" required>
+                                </div>
+                                <span class="input-help">Ingresos fijos recibidos por el hogar.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="purchase-gasto-anterior">Gasto Mensual Anterior de Canasta (Bs):</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-clock-rotate-left"></i>
+                                    <input type="number" id="purchase-gasto-anterior" placeholder="Ej: 2500" min="0" required>
+                                </div>
+                                <span class="input-help">Lo gastado mensualmente antes de la subida.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="purchase-gasto-actual">Gasto Mensual Actual de Canasta (Bs):</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-cash-register"></i>
+                                    <input type="number" id="purchase-gasto-actual" placeholder="Ej: 3200" min="0" required>
+                                </div>
+                                <span class="input-help">Lo que cuesta comprar exactamente lo mismo hoy.</span>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary" id="btn-calc-purchasing">
+                                    <i class="fa-solid fa-percent"></i> Calcular Pérdida Real
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-clear" data-form="form-purchasing">
+                                    <i class="fa-solid fa-trash-can"></i> Limpiar
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="test-preset-box">
+                            <h4><i class="fa-solid fa-vial-circle-check"></i> Probar Caso de Prueba Educativo</h4>
+                            <p>Carga los datos para un salario promedio de 3,000 Bs que experimenta un incremento de gastos de 2,500 Bs a 3,200 Bs.</p>
+                            <button type="button" class="btn btn-preset" data-preset="purchasing-case6">
+                                <i class="fa-solid fa-download"></i> Cargar Datos de Prueba
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Resultados Visuales -->
+                    <div class="panel-card results-column">
+                        <h3><i class="fa-solid fa-hand-holding-dollar"></i> Diagnóstico de Capacidad de Compra</h3>
+                        
+                        <div id="results-purchasing" class="results-placeholder">
+                            <div class="empty-state">
+                                <i class="fa-solid fa-calculator"></i>
+                                <p>Ingresa tu presupuesto para conocer qué porcentaje de tu sueldo se ha erosionado debido a la inflación.</p>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico dinámico -->
+                        <div id="chart-container-purchasing" class="dynamic-chart-card" style="display: none;">
+                            <h4>Reducción del Presupuesto Libre de la Familia</h4>
+                            <div class="dual-progress-container" id="purchasing-progress-bars">
+                                <!-- Inyección JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN: APRENDIZAJE Y LECCIONES SOCIOECONÓMICAS -->
+            <section id="sec-learning" class="simulator-panel" aria-labelledby="title-learning">
+                <div class="panel-hero hero-learning">
+                    <div class="hero-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <div class="hero-body">
+                        <h2 id="title-learning">¿Qué Aprendemos y Cómo Analizar el Contexto?</h2>
+                        <p>Los simuladores de esta página no son solo juegos matemáticos abstractos. Representan herramientas de planificación esenciales para la toma de decisiones.</p>
+                    </div>
+                </div>
+
+                <div class="learning-grid">
+                    <article class="learning-card">
+                        <div class="card-icon"><i class="fa-solid fa-gas-pump"></i></div>
+                        <div class="card-content">
+                            <h3>Gestión Dinámica de Reservas (Carburantes)</h3>
+                            <p><strong>Lo que aplicamos:</strong> Restas acumulativas y tasas de cambio lineal (Reserva final = Reserva inicial + Reabastecimiento - Consumo).</p>
+                            <p><strong>El aprendizaje práctico:</strong> Si el consumo supera al abastecimiento diario, el agotamiento es inevitable. Planificar el uso de transportes alternativos o programar compras en horas específicas ayuda a amortiguar la crisis antes de llegar al nivel crítico.</p>
+                        </div>
+                    </article>
+
+                    <article class="learning-card">
+                        <div class="card-icon"><i class="fa-solid fa-percent"></i></div>
+                        <div class="card-content">
+                            <h3>Cálculo de Inflación y Variación (Alimentos)</h3>
+                            <p><strong>Lo que aplicamos:</strong> Tasas porcentuales de aumento y sumatorias ponderadas por frecuencia.</p>
+                            <p><strong>El aprendizaje práctico:</strong> Nos enseña que la inflación familiar no afecta a todos por igual, sino que depende de los productos que más se consumen en el hogar. Al conocer qué productos suben más, la familia puede sustituir temporalmente ciertos alimentos o reestructurar su dieta.</p>
+                        </div>
+                    </article>
+
+                    <article class="learning-card">
+                        <div class="card-icon"><i class="fa-solid fa-road-barrier"></i></div>
+                        <div class="card-content">
+                            <h3>Optimización de Rutas y Logística (Transporte)</h3>
+                            <p><strong>Lo que aplicamos:</strong> Geometría de trayectos y multiplicación de costos fijos por km.</p>
+                            <p><strong>El aprendizaje práctico:</strong> El desvío por bloqueos genera un sobrecosto silencioso. Al simularlo, entendemos que cambiar de ruta no solo gasta más gasolina, sino que tiene un costo de oportunidad en tiempo y desgaste del vehículo, lo que obliga a reconsiderar la necesidad del viaje.</p>
+                        </div>
+                    </article>
+
+                    <article class="learning-card">
+                        <div class="card-icon"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="card-content">
+                            <h3>Control Presupuestario y Prioridades (Compras)</h3>
+                            <p><strong>Lo que aplicamos:</strong> Control de saldos lógicos y clasificaciones porcentuales del gasto.</p>
+                            <p><strong>El aprendizaje práctico:</strong> Cuando el dinero disponible es menor al costo total de la canasta, el modelo calcula el déficit de inmediato. Esto obliga a realizar una jerarquización de necesidades (comprar lo indispensable primero) en lugar de gastar de forma desordenada.</p>
+                        </div>
+                    </article>
+
+                    <article class="learning-card">
+                        <div class="card-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="card-content">
+                            <h3>Efecto del Pánico y Psicología de Masas (Rumores)</h3>
+                            <p><strong>Lo que aplicamos:</strong> Amplificación multiplicativa de la demanda ante un stock limitado.</p>
+                            <p><strong>El aprendizaje práctico:</strong> El desabastecimiento muchas veces no se debe a que no haya producción, sino a que los rumores impulsan a la gente a comprar el doble de lo normal. La matemática demuestra que si todos moderan su compra, el stock alcanza para cubrir el consumo.</p>
+                        </div>
+                    </article>
+
+                    <article class="learning-card">
+                        <div class="card-icon"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+                        <div class="card-content">
+                            <h3>Valor Nominal vs. Valor Real del Dinero (Poder Adquisitivo)</h3>
+                            <p><strong>Lo que aplicamos:</strong> Tasas de erosión salarial y cálculo de balances remanentes.</p>
+                            <p><strong>El aprendizaje práctico:</strong> Aunque sigas ganando la misma cantidad de bolivianos en papel (valor nominal), el aumento de los precios hace que el dinero rinda menos (valor real). Visualizar esta brecha ayuda a justificar la búsqueda de ingresos extra o la reducción estricta de gastos hormiga.</p>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="panel-card mt-4">
+                    <h3><i class="fa-solid fa-graduation-cap"></i> Conclusión del Modelo Educativo</h3>
+                    <p>Las crisis socioeconómicas no son fenómenos aislados. La toma de decisiones financieras racionales basada en datos y proyecciones numéricas reales permite a las familias amortiguar el impacto de la escasez, redistribuir sus recursos de manera eficiente y evitar caer en compras desesperadas que solo agravan el desabastecimiento local.</p>
+                </div>
+            </section>
+
+            <!-- SECCIÓN: CASOS DE ESTUDIO CONSOLIDADOS (OBLIGATORIA) -->
+            <section id="sec-cases" class="simulator-panel" aria-labelledby="title-cases">
+                <div class="panel-hero hero-cases">
+                    <div class="hero-icon"><i class="fa-solid fa-vials"></i></div>
+                    <div class="hero-body">
+                        <h2 id="title-cases">Casos de Estudio para Probar y Evaluar</h2>
+                        <p>En esta sección de validación obligatoria, puedes ejecutar de forma directa los casos de prueba solicitados por el tribunal evaluador. Haz clic para simular y verificar los resultados matemáticos calculados por la aplicación.</p>
+                    </div>
+                </div>
+
+                <div class="cases-tabs-container">
+                    <!-- Fichas de Casos -->
+                    <div class="cases-selector">
+                        <button class="case-tab-btn active" data-case="case1">Caso 1: Carburantes</button>
+                        <button class="case-tab-btn" data-case="case2">Caso 2: Alimentos</button>
+                        <button class="case-tab-btn" data-case="case3">Caso 3: Transporte</button>
+                        <button class="case-tab-btn" data-case="case4">Caso 4: Presupuesto</button>
+                        <button class="case-tab-btn" data-case="case5">Caso 5: Escasez</button>
+                    </div>
+
+                    <div class="case-detail-card">
+                        <!-- CASO 1 -->
+                        <div class="case-content active" id="case-content-case1">
+                            <div class="case-info-split">
+                                <div>
+                                    <h3>Caso de Estudio 1: Reserva de Carburante</h3>
+                                    <p>Evalúa una estación de servicio con una reserva inicial media, consumo alto diario, reabastecimiento programado de cisternas y un nivel de alerta de seguridad.</p>
+                                    
+                                    <table class="case-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Parámetro</th>
+                                                <th>Valor Definido</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>Reserva inicial</td><td>10,000 litros</td></tr>
+                                            <tr><td>Consumo diario</td><td>1,200 litros</td></tr>
+                                            <tr><td>Reabastecimiento diario</td><td>300 litros</td></tr>
+                                            <tr><td>Nivel crítico</td><td>2,000 litros</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="case-result-box">
+                                    <h4>Resultado Esperado</h4>
+                                    <p class="expected-text">La reserva se reduce en 900 litros netos por día (1200 - 300). <br>Llegará al nivel crítico en el <strong>día 9</strong> (Reserva: 1,900 L). <br>Se vaciará por completo al <strong>día 12</strong> (Reserva: 0 L, se agota a los 11.1 días).</p>
+                                    <button class="btn btn-success btn-run-case" data-target-tab="fuel" data-preset="fuel-case1">
+                                        <i class="fa-solid fa-play"></i> Cargar y Ejecutar Simulación
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CASO 2 -->
+                        <div class="case-content" id="case-content-case2">
+                            <div class="case-info-split">
+                                <div>
+                                    <h3>Caso de Estudio 2: Aumento del Precio de Alimentos</h3>
+                                    <p>Calcula el porcentaje de encarecimiento y el impacto mensual en la canasta familiar boliviana utilizando tres productos comunes.</p>
+                                    
+                                    <table class="case-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th>Precio Anterior</th>
+                                                <th>Precio Actual</th>
+                                                <th>Cantidad Mensual</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>Arroz</td><td>8 Bs</td><td>11 Bs</td><td>10 unidades</td></tr>
+                                            <tr><td>Papa</td><td>7 Bs</td><td>10 Bs</td><td>8 unidades</td></tr>
+                                            <tr><td>Aceite</td><td>12 Bs</td><td>18 Bs</td><td>4 unidades</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="case-result-box">
+                                    <h4>Resultado Esperado</h4>
+                                    <p class="expected-text">Gasto anterior total: <strong>184 Bs</strong>.<br>Gasto actual total: <strong>262 Bs</strong>.<br>Diferencia a pagar: <strong>+78 Bs</strong> (un aumento de <strong>+42.39%</strong> en alimentación básica).</p>
+                                    <button class="btn btn-success btn-run-case" data-target-tab="food" data-preset="food-case2">
+                                        <i class="fa-solid fa-play"></i> Cargar y Ejecutar Simulación
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CASO 3 -->
+                        <div class="case-content" id="case-content-case3">
+                            <div class="case-info-split">
+                                <div>
+                                    <h3>Caso de Estudio 3: Transporte con Desvío</h3>
+                                    <p>Simula el impacto de un bloqueo vial sobre una persona que se moviliza en auto o autobús 5 veces por semana, incrementando su recorrido diario en 6 km.</p>
+                                    
+                                    <table class="case-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Dato</th>
+                                                <th>Valor Definido</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>Distancia normal</td><td>10 km</td></tr>
+                                            <tr><td>Distancia con desvío</td><td>16 km</td></tr>
+                                            <tr><td>Costo por kilómetro</td><td>2 Bs</td></tr>
+                                            <tr><td>Viajes por semana</td><td>5</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="case-result-box">
+                                    <h4>Resultado Esperado</h4>
+                                    <p class="expected-text">Costo normal por viaje: 20 Bs.<br>Costo desvío por viaje: 32 Bs.<br>Gasto adicional semanal: <strong>+60 Bs</strong> por semana (lo que equivale a <strong>+240 Bs</strong> extra al mes).</p>
+                                    <button class="btn btn-success btn-run-case" data-target-tab="transport" data-preset="transport-case3">
+                                        <i class="fa-solid fa-play"></i> Cargar y Ejecutar Simulación
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CASO 4 -->
+                        <div class="case-content" id="case-content-case4">
+                            <div class="case-info-split">
+                                <div>
+                                    <h3>Caso de Estudio 4: Presupuesto Familiar</h3>
+                                    <p>Determina la viabilidad de la compra familiar básica de un hogar que posee 500 Bs, pero el total de productos alcanza 580 Bs.</p>
+                                    
+                                    <table class="case-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Dato</th>
+                                                <th>Valor Definido</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>Presupuesto disponible</td><td>500 Bs</td></tr>
+                                            <tr><td>Total de la compra planeada</td><td>580 Bs</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="case-result-box">
+                                    <h4>Resultado Esperado</h4>
+                                    <p class="expected-text">El presupuesto es insuficiente.<br>Se declara <strong>déficit financiero</strong> por valor de <strong>-80 Bs</strong> (falta dinero). El gasto se clasifica como <strong>Alto (116%)</strong>.</p>
+                                    <button class="btn btn-success btn-run-case" data-target-tab="budget" data-preset="budget-case4">
+                                        <i class="fa-solid fa-play"></i> Cargar y Ejecutar Simulación
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CASO 5 -->
+                        <div class="case-content" id="case-content-case5">
+                            <div class="case-info-split">
+                                <div>
+                                    <h3>Caso de Estudio 5: Rumor de Escasez</h3>
+                                    <p>Simula una tienda comercial local. Demuestra cómo las compras nerviosas impulsadas por el temor al desabastecimiento agotan el inventario en almacenes.</p>
+                                    
+                                    <table class="case-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Dato</th>
+                                                <th>Valor Definido</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>Demanda normal</td><td>100 unidades</td></tr>
+                                            <tr><td>Aumento por rumor</td><td>40%</td></tr>
+                                            <tr><td>Stock disponible</td><td>120 unidades</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="case-result-box">
+                                    <h4>Resultado Esperado</h4>
+                                    <p class="expected-text">Nueva demanda: <strong>140 unidades</strong>.<br>Stock disponible: 120 unidades.<br>Diagnóstico: <strong>Desabastecimiento Crítico</strong>. Faltan <strong>20 unidades</strong> de stock para cubrir las compras impulsivas.</p>
+                                    <button class="btn btn-success btn-run-case" data-target-tab="panic" data-preset="panic-case5">
+                                        <i class="fa-solid fa-play"></i> Cargar y Ejecutar Simulación
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- SECCIÓN DE CRÉDITOS ACADÉMICOS -->
+        <section class="student-credits-panel">
+            <div class="credits-card">
+                <div class="student-avatar">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <div class="credits-info">
+                    <h3>Ficha Técnica del Desarrollador</h3>
+                    <p class="student-name">Joaquin Ramos Alanoca</p>
+                    <p class="course-info"><i class="fa-solid fa-award"></i> Estudiante de la Carrera de Informática</p>
+                    <p class="school-info"><i class="fa-solid fa-university"></i> Universidad Mayor de San Andres - Programación Web I</p>
+                    <p class="loc-info"><i class="fa-solid fa-location-dot"></i> La Paz, Bolivia - Gestión 2026</p>
+                </div>
+                <div class="credits-social">
+                    <a href="https://github.com/Makuinwb/proyecto_final" target="_blank" class="social-link" title="GitHub del desarrollador"><i class="fa-brands fa-github"></i> GitHub</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- PIE DE PÁGINA -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <p>&copy; 2026 <strong>CrisisSim</strong> - Herramienta Educativa Universitaria de Simulación Socioeconómica.</p>
+                <p>Todos los derechos reservados. Desarrollado por Joaquín Ramos Alanoca en cumplimiento de los requisitos académicos de la materia Programación Web I.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Script del comportamiento dinámico -->
+    <script src="js/script.js"></script>
+</body>
+</html>
